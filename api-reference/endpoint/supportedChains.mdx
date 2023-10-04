@@ -1,20 +1,21 @@
 ---
-title: "Create User"
-api: "POST https://api.mintlify.com/api/user"
-description: "This endpoint creates a new user"
+title: "Supported Chains"
+api: "GET https://api.mintlify.com/supportedChains"
+description: "Returns all the chains supported by Transfer."
 ---
 
-### Body
-
-<ParamField body="current_token" type="string">
-  This is the current user group token you have for the user group that you want
-  to rotate.
+<ParamField header="Authorization" type="string">
+  API Token
 </ParamField>
 
 ### Response
 
 <ResponseField name="success" type="number">
   Indicates whether the call was successful. 1 if successful, 0 if not.
+</ResponseField>
+
+<ResponseField name="new_user_group" type="boolean">
+  Indicates whether a new user group was created.
 </ResponseField>
 
 <ResponseField name="user_group" type="object">
@@ -42,12 +43,8 @@ The contents of the user group
   This is the user_group_id provided in the request body.
 </ResponseField>
 
-<ResponseField name="api_environment_tag" type="JSON or null">
-  This is the environment tag of the user group. Possible values are 'Customer'
-  and 'Testing'. User group id's must be unique to each environment, so you can
-  not create multiple user groups with with same id. If you have a production
-  customer and a test user group with the same id, you will be required to label
-  one as 'Customer' and another as 'Testing'
+<ResponseField name="properties" type="JSON or null">
+  This is the properties object if it was provided in the request body
 </ResponseField>
 
 </Expandable>
@@ -57,12 +54,9 @@ The contents of the user group
 <RequestExample>
 
 ```bash Example Request
-curl --location --request POST 'https://api.mintlify.com/api/user' \
+curl --location --request GET 'https://api.mintlify.com/api/user' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Token <token>' \
---data-raw '{
-    "current_token": ""
-}'
+--header 'Authorization: Bearer <token>'
 ```
 
 </RequestExample>
@@ -72,6 +66,7 @@ curl --location --request POST 'https://api.mintlify.com/api/user' \
 ```json Response
 {
   "success": 1,
+  "new_user_group": true,
   "user_group": {
     "team_id": 3,
     "token": "<user_group_token_to_auth_dashboard>",

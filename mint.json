@@ -54,11 +54,17 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "sdk", "widget", "terminal"]
+      "pages": ["introduction", "quickstart", "sdk", "terminal"]
     },
     {
       "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation"
+      ]
     },
     {
       "group": "API Documentation",
@@ -67,12 +73,10 @@
     {
       "group": "Endpoint Examples",
       "pages": [
+        "api-reference/endpoint/supportedChains",
+        "api-reference/endpoint/supportedTokens",
         "api-reference/endpoint/bridge",
-        "api-reference/endpoint/swap",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/update",
-        "api-reference/endpoint/delete"
-        
+        "api-reference/endpoint/swap"
       ]
     }
   ],
