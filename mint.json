@@ -54,7 +54,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["introduction", "quickstart", "SDK", "Widget", "Terminal"]
     },
     {
       "group": "Essentials",
@@ -67,10 +67,12 @@
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
+        "api-reference/endpoint/bridge",
+        "api-reference/endpoint/swap",
         "api-reference/endpoint/create",
         "api-reference/endpoint/update",
         "api-reference/endpoint/delete"
+        
       ]
     }
   ],
