@@ -82,5 +82,11 @@
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/transferdotxyz"
+  },
+  "api": {
+    "baseUrl": "https://transfer-api-git-staging-argo-eng.vercel.app",
+    "auth": {
+      "method": "bearer"
+    }
   }
 }
