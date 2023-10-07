@@ -5,7 +5,8 @@ description: "For bridging."
 ---
 
 <ParamField query="quote (optional)" type="boolean">
-  If true, it will return the bridge quote without the fees.
+  If true, it will return the bridge quote without the transaction object and
+  won't accrue any fees.
 </ParamField>
 
 ### Body
@@ -44,19 +45,95 @@ description: "For bridging."
 
 ### Response
 
-<RequestExample>
+If the `quote` query parameter is set to `false` or not provided, the response will be:
 
-```bash Example Request
-curl --location --request GET 'https://api.mintlify.com/api/user' \
+<ResponseField name="alternativeRoutes" type="array">
+  The address of the token.
+</ResponseField>
+
+<ResponseField name="bestRoute" type="object">
+<Expandable>
+
+<ResponseField name="bridgeInfo" type="object">
+  <Expandable>
+    <ResponseField name="bridgeExplorer" type="string">
+      Bridge explorer base url.
+    </ResponseField>
+    <ResponseField name="logoUri" type="string?">
+      Logo URI for the bridge. This field is optional and might not always be
+      provided.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Name of the bridge.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+    <ResponseField name="dstAmountEstimate" type="int">
+      Estimate of the amount of tokens to be received on the destination chain.
+    </ResponseField>
+
+
+     <ResponseField name="srcChainAggregatorInfo" type="object">
+      <Expandable>
+          <ResponseField name="logoURI" type="string?">
+            Logo URI for the source chain aggregator. This field is optional and might not always be provided.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+            Name of the aggregator.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+
+    <ResponseField name="dstChainAggregatorInfo" type="object">
+      <Expandable>
+          <ResponseField name="logoURI" type="string?">
+            Logo URI for the destination chain aggregator. This field is optional and might not always be provided.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+            Name of the aggregator.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+     <ResponseField name="srcChainSwapDexs" type="array">
+      <Expandable>
+          <ResponseField name="proportion" type="string">
+              Proportion of the swap dex.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+              Name of the source chain swap dex.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+      <ResponseField name="dstChainSwapDexs" type="array">
+      <Expandable>
+          <ResponseField name="proportion" type="string">
+              Proportion of the swap dex.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+              Name of the destination chain swap dex.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+</Expandable>
+   </ResponseField>
+
+If the `quote` query parameter is set to `true`, the response will be:
+
+<RequestExample>
+```bash Example request with quote
+curl --location --request GET 'https://api.mintlify.com/bridge?quote=true' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Token <token>' \
+--header 'Authorization: Bearer <token>' \
 --data-raw '{
-    "user_group_id": "example_1",
-    "name": "Example 1",
-    "mapping": {"40": "213", "134": "386"},
-    "properties": {"filterValue": "value"}
+
 }'
-```
+
+````
 
 </RequestExample>
 
@@ -64,15 +141,37 @@ curl --location --request GET 'https://api.mintlify.com/api/user' \
 
 ```json Response
 {
-  "success": 1,
-  "new_user_group": true,
-  "user_group": {
-    "team_id": 3,
-    "token": "<user_group_token_to_auth_dashboard>",
-    "name": "Example 1",
-    "provided_id": "example_1"
-  }
+    "alternateRoutes": [],
+    "bestRoute": {
+        "bridgeInfo": {
+            "bridgeExplorer": "https://layerzeroscan.com/",
+            "logoURI": "https://raw.githubusercontent.com/argo-crypto/transfer-assets/main/bridges/stargate.svg",
+            "name": "stargate"
+        },
+        "dstAmountEstimate": 1922367638441244546,
+        "dstChainAggregatorInfo": {
+            "logoURI": "https://raw.githubusercontent.com/argo-crypto/transfer-assets/main/aggregators/0x.svg",
+            "name": "0x"
+        },
+        "dstChainSwapDexs": [
+            {
+                "name": "Uniswap_V3",
+                "proportion": "1"
+            }
+        ],
+        "srcChainAggregatorInfo": {
+            "logoURI": "https://raw.githubusercontent.com/argo-crypto/transfer-assets/main/aggregators/0x.svg",
+            "name": "0x"
+        },
+        "srcChainSwapDexs": [
+            {
+                "name": "Uniswap_V3",
+                "proportion": "1"
+            }
+        ]
+    }
 }
 ```
 
 </ResponseExample>
+````
