@@ -48,7 +48,8 @@ description: "For bridging."
 If the `quote` query parameter is set to `false` or not provided, the response will be:
 
 <ResponseField name="alternativeRoutes" type="array">
-  The address of the token.
+  Alternate routes for the bridge. Would be an array of `bestRoute` objects if
+  there are any.
 </ResponseField>
 
 <ResponseField name="bestRoute" type="object">
@@ -119,10 +120,111 @@ If the `quote` query parameter is set to `false` or not provided, the response w
       </Expandable>
     </ResponseField>
 
-</Expandable>
-   </ResponseField>
+  </Expandable>
+</ResponseField>
 
 If the `quote` query parameter is set to `true`, the response will be:
+
+<ResponseField name="alternativeRoutes" type="array">
+  Alternate routes for the bridge. Would be an array of `bestRoute` objects if
+  there are any.
+</ResponseField>
+
+<ResponseField name="bestRoute" type="object">
+<Expandable>
+
+<ResponseField name="approvalInfo" type="object">
+  <Expandable>
+    <ResponseField name="srcChainContractToApprove" type="string">
+      Source chain contract that requires approval for the transfer.
+    </ResponseField>
+    <ResponseField name="srcChainTokenAddress" type="string?">
+      Source chain token address.
+    </ResponseField>
+    <ResponseField name="amount" type="int">
+      Amount that needs to be approved.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="bridgeInfo" type="object">
+  <Expandable>
+    <ResponseField name="bridgeExplorer" type="string">
+      Bridge explorer base url.
+    </ResponseField>
+    <ResponseField name="logoUri" type="string?">
+      Logo URI for the bridge. This field is optional and might not always be
+      provided.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Name of the bridge.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+    <ResponseField name="dstAmountEstimate" type="int">
+      Estimate of the amount of tokens to be received on the destination chain.
+    </ResponseField>
+
+    <ResponseField name="timeEstimate" type="int">
+    Time in seconds for the bridge to complete the transfer.
+    </ResponseField>
+
+     <ResponseField name="srcChainAggregatorInfo" type="object">
+      <Expandable>
+          <ResponseField name="logoURI" type="string?">
+            Logo URI for the source chain aggregator. This field is optional and might not always be provided.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+            Name of the aggregator.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+
+    <ResponseField name="dstChainAggregatorInfo" type="object">
+      <Expandable>
+          <ResponseField name="logoURI" type="string?">
+            Logo URI for the destination chain aggregator. This field is optional and might not always be provided.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+            Name of the aggregator.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+     <ResponseField name="srcChainSwapDexs" type="array">
+      <Expandable>
+          <ResponseField name="proportion" type="string">
+              Proportion of the swap dex.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+              Name of the source chain swap dex.
+          </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+      <ResponseField name="dstChainSwapDexs" type="array">
+      <Expandable>
+          <ResponseField name="proportion" type="string">
+              Proportion of the swap dex.
+          </ResponseField>
+           <ResponseField name="name" type="string">
+              Name of the destination chain swap dex.
+          </ResponseField>
+      </Expandable>
+        </ResponseField>
+
+<ResponseField name="transactionRequest" type="object">
+  ethers.js TransactionRequest object.
+</ResponseField>
+
+<ResponseField name="erc20Abi" type="object">
+  ERC20 ABI for the source chain token so that approval is easily done.
+</ResponseField>
+
+  </Expandable>
+</ResponseField>
 
 <RequestExample>
 ```bash Example request with quote
